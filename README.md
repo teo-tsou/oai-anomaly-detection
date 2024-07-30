@@ -1,5 +1,6 @@
 # OAI Anomaly Detection
 
+![alt text](https://github.com/teo-tsou/oai-anomaly-detection/blob/master/explanatory-second.png)
 
 ## 6.2 Slicing Configuration
 
