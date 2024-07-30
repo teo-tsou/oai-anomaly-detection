@@ -1,6 +1,6 @@
 # AI/ML-Driven Anomaly Detection & RAN Slicing/RRC Release in O-RAN enabled OAI
 
-![alt text](https://github.com/teo-tsou/oai-anomaly-detection/blob/main/explanatory-second.png)
+![alt text](https://github.com/teo-tsou/oai-anomaly-detection/blob/main/arch-setup.png)
 
 ## Reproducibility Instructions
  
