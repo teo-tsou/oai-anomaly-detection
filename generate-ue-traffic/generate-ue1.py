@@ -49,11 +49,11 @@ def generate_packet(row):
     src_payload = 'X' * min(src_bytes, max_payload_size)
 
     if protocol == 'tcp':
-        inner_packet = IP(src= "12.2.1.3", dst="12.2.1.1")/TCP(dport=port, flags=flag)/Raw(load=src_payload)
+        inner_packet = IP(src= "12.2.1.2", dst="12.2.1.1")/TCP(dport=port, flags=flag)/Raw(load=src_payload)
     elif protocol == 'udp':
-        inner_packet = IP(src= "12.2.1.3", dst="12.2.1.1")/UDP(dport=port)/Raw(load=src_payload)
+        inner_packet = IP(src= "12.2.1.2", dst="12.2.1.1")/UDP(dport=port)/Raw(load=src_payload)
     else:
-        inner_packet = IP(src= "12.2.1.3", dst="12.2.1.1")/ICMP()  # Default for other protocols
+        inner_packet = IP(src= "12.2.1.2", dst="12.2.1.1")/ICMP()  # Default for other protocols
     
     # Encapsulate in GTP-U packet
     gtp_packet = IP(src= "12.2.1.2", dst="12.2.1.1")/UDP(sport=2152, dport=2152)/GTP_U_Header(teid=1)/inner_packet
@@ -61,9 +61,9 @@ def generate_packet(row):
     # Handling response packet if there is any payload to respond with
     if dst_bytes > 0:
         dst_payload = 'X' * min(dst_bytes, max_payload_size)
-        response_inner_packet = IP(src="12.2.1.1", dst="12.2.1.3")/TCP(sport=port, dport=1024, flags='PA')/Raw(load=dst_payload)
+        response_inner_packet = IP(src="12.2.1.1", dst="12.2.1.2")/TCP(sport=port, dport=1024, flags='PA')/Raw(load=dst_payload)
         # Encapsulate response in GTP-U
-        response_gtp_packet = IP(src= "12.2.1.3", dst="12.2.1.1")/UDP(sport=2152, dport=2152)/GTP_U_Header(teid=1)/response_inner_packet
+        response_gtp_packet = IP(src= "12.2.1.2", dst="12.2.1.1")/UDP(sport=2152, dport=2152)/GTP_U_Header(teid=1)/response_inner_packet
         return (gtp_packet, response_gtp_packet)
     else:
         return (gtp_packet, None)
