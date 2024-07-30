@@ -56,8 +56,8 @@
  
   #### For UPF-Slice1:
   ```bash
-  cd flexric/build/examples/xApp/c/ctrl
-  python3 anomaly-detection-slice2.py
+  docker exec -ti oai-upf-slice1 bash
+  python3 anomaly-detection-slice1.py
   ```
 
   #### For UPF-Slice2:
