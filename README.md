@@ -100,7 +100,7 @@ cd <path-to/oai-anomaly-detection/generate-ue-traffic>
 python3 generate-ue2.py
 ```
 
-### To generate DoS Attack use Hping3:
+### Generate DoS Attack using Hping3:
   
 #### Small-size packet attack:
 
