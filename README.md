@@ -66,6 +66,8 @@
   python3 anomaly-detection-slice2.py
   ```
 
+Both Anomaly Detectors should be connected to the xapps.
+
 ### Start the UEs
 
 #### Start UE#1
@@ -111,4 +113,9 @@ python3 generate-ue2.py
 #### Huge-size packet attack (this might cause RAN to fail):
 
 `hping3 -S -d 1000000000000000000 -a 12.2.1.2 12.2.1.1 --flood`
+
+
+### Observe the XApp logs:
+
+Watch how the RBs are shared when starting the malicious packets via Scapy (generate-ue-traffic). Also, observe the RRC UE release during the DoS attacks.
 
