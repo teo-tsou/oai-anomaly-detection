@@ -2,6 +2,38 @@
 
 ![alt text](https://github.com/teo-tsou/oai-anomaly-detection/blob/main/arch-setup.png)
 
+## Directory Structure
+
+- **conf**
+  - Contains configuration files for:
+    - gNB
+    - UE
+    - Multi-UE scripts
+
+- **generate-ue-traffic**
+  - Python scripts for generating UE traffic based on the KDDCUP’99 dataset using Scapy. This involves replaying the dataset for 2 UEs.
+
+- **notebooks**
+  - Jupyter notebooks (.ipynb files) that include:
+    - Training and evaluation of various AI/ML models on the classification of attacks/normal activities using the KDDCUP’99 dataset.
+    - Analysis of the random forest model.
+
+- **slicing-cn**
+  - Docker-compose files for deploying the multi-slice UPF (1&2) core network.
+  - The UPF images are sourced from `ttsourdinis/custom-upf`.
+  - These images incorporate Anomaly Detection Servers (ADS) functionality within the UPFs.
+
+- **xapp_rc_slice_ctrl.c**
+  - The xApp that:
+    - Enforces RB (Resource Block) resources to end-users based on the anomaly ratio obtained from ADS.
+    - Triggers RRC (Radio Resource Control) UE connection release for identified attackers.
+
+- **README.md**
+  - Contains an overview of the project and setup instructions.
+
+- **arch-setup.png**
+  - An architectural diagram illustrating the setup.
+
 ## Reproducibility Instructions
  
 ### Start the Core Network
