@@ -2,7 +2,7 @@
 
 ![alt text](https://github.com/teo-tsou/oai-anomaly-detection/blob/main/arch-setup.png)
 
-## Directory Structure
+## Repository Structure
 
 - **conf**
   - Contains configuration files for:
