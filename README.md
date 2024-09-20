@@ -2,6 +2,12 @@
 
 ![alt text](https://github.com/teo-tsou/oai-anomaly-detection/blob/main/arch-setup.png)
 
+**DEMO on YouTube:**
+
+
+[![DEMO](https://img.youtube.com/vi/4hx1mAvhXMY/0.jpg)]([https://www.youtube.com/watch?v=2scoAJRxJrY](https://youtu.be/4hx1mAvhXMY))
+
+
 ## Repository Structure
 
 - **conf**
