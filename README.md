@@ -5,7 +5,7 @@
 **DEMO on YouTube:**
 
 
-[![DEMO](https://img.youtube.com/vi/4hx1mAvhXMY/0.jpg)]([https://www.youtube.com/watch?v=2scoAJRxJrY](https://youtu.be/4hx1mAvhXMY))
+[![Demo Video](https://img.youtube.com/vi/4hx1mAvhXMY/0.jpg)](https://youtu.be/4hx1mAvhXMY)
 
 
 ## Repository Structure
