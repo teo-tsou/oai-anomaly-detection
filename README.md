@@ -108,14 +108,14 @@ Both Anomaly Detectors should be connected to the xapps.
 
 ### Start the UEs
 
-#### Start UE#1
+#### Start UE1
   ```bash
   cd openairinterface5g/cmake_targets/ran_build/build
   sudo <path-to/multi-ue.sh> -c1 -e  # create namespace
   sudo LD_LIBRARY_PATH=. ./nr-uesoftmodem --rfsimulator.serveraddr 10.201.1.100 -r 106 --numerology 1 --band 78 -C 3619200000 --rfsim --sa -O <path-to/oai-anomaly-detection/conf/ue_1.conf> -E
   ```
 
-#### Start UE#2
+#### Start UE2
   ```bash
   cd openairinterface5g/cmake_targets/ran_build/build
   sudo <path-to/multi-ue.sh> -c2 -e  # create namespace
