@@ -1,5 +1,27 @@
 # AI/ML-Driven Anomaly Detection & RAN Slicing/RRC Release in O-RAN enabled OAI
 
+If you find this repository useful in your research, please consider citing the following paper:
+
+```
+@inproceedings{10.1145/3636534.3697311,
+  author = {Tsourdinis, Theodoros and Makris, Nikos and Korakis, Thanasis and Fdida, Serge},
+  title = {AI-Driven Network Intrusion Detection and Resource Allocation in Real-World O-RAN 5G Networks},
+  year = {2024},
+  isbn = {9798400704895},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3636534.3697311},
+  doi = {10.1145/3636534.3697311},
+  booktitle = {Proceedings of the 30th Annual International Conference on Mobile Computing and Networking},
+  pages = {1842--1849},
+  numpages = {8},
+  keywords = {5G, O-RAN, security, AI/ML, slicing, OAI, OpenAirInterface, FlexRIC},
+  location = {Washington D.C., DC, USA},
+  series = {ACM MobiCom '24}
+}
+```
+
+
 ![alt text](https://github.com/teo-tsou/oai-anomaly-detection/blob/main/arch-setup.png)
 
 **DEMO on YouTube:**
