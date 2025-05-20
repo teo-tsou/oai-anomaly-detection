@@ -117,13 +117,13 @@ If you find this repository useful in your research, please consider citing the 
   #### For UPF-Slice1:
   ```bash
   docker exec -ti oai-upf-slice1 bash
-  python3 anomaly-detection-slice1.py
+  python3 anomaly-detection-server-slice1.py
   ```
 
   #### For UPF-Slice2:
   ```bash
   docker exec -ti oai-upf-slice2 bash
-  python3 anomaly-detection-slice2.py
+  python3 anomaly-detection-server-slice2.py
   ```
 
 Both Anomaly Detectors should be connected to the xapps.
