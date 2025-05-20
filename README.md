@@ -89,7 +89,7 @@ If you find this repository useful in your research, please consider citing the 
   cd cmake_targets
   ./build_oai -c -C -w SIMU --gNB --nrUE --build-e2 --ninja
   cd ../
-  git checkout develop
+  git checkout 243c985af86f857c28d14c2bb25e54e223b07a00
   cd cmake_targets
   ./build_oai --build-lib telnetsrv
   ```
