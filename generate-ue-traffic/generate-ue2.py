@@ -6,7 +6,7 @@ from scapy.contrib.gtp import GTP_U_Header, GTPEchoRequest, GTPEchoResponse
 
 
 # Load data with the same column names as before
-column_names = ["duration", "protocol_type", "service", "flag", "src_bytes", "dst_bytes", "land", "wrong_fragment", "urgent", "hot", "num_failed_logins", "logged_in", "num_compromised", "root_shell", "su_attempted", "num_root", "num_file_creations", "num_shells", "num_access_files", "num_outbound_cmds", "is_host_login", "is_guest_login", "count", "srv_count", "serror_rate", "srv_serror_rate", "rerror_rate", "srv_rerror_rate", "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate", "dst_host_count", "dst_host_srv_count", "dst_host_same_srv_rate", "dst_host_diff_srv_rate", "dst_host_same_src_port_rate", "dst_host_srv_diff_host_rate", "dst_host_serror_rate", "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate", "label", "difficulty_level"]
+column_names = ["duration", "protocol_type", "service", "flag", "src_bytes", "dst_bytes", "land", "wrong_fragment", "urgent", "hot", "num_failed_logins", "logged_in", "num_compromised", "root_shell", "su_attempted", "num_root", "num_file_creations", "num_shells", "num_access_files", "num_outbound_cmds", "is_host_login", "is_guest_login", "count", "srv_count", "serror_rate", "srv_serror_rate", "rerror_rate", "srv_rerror_rate", "same_srv_rate", "diff_srv_rate", "srv_diff_host_rate", "dst_host_count", "d>
 test_df = pd.read_csv('Test.txt', header=None, names=column_names)
 
 def generate_packet(row):
@@ -56,17 +56,17 @@ def generate_packet(row):
         inner_packet = IP(src= "12.1.1.130", dst="192.168.70.145")/ICMP()  # Default for other protocols
     
     # Encapsulate in GTP-U packet
-    gtp_packet = IP(src= "12.1.1.130", dst="12.1.1.129")/UDP(sport=2152, dport=2152)/GTP_U_Header(teid=1)/inner_packet
+    #gtp_packet = IP(src= "12.1.1.130", dst="12.1.1.129")/UDP(sport=2152, dport=2152)/GTP_U_Header(teid=1)/inner_packet
 
     # Handling response packet if there is any payload to respond with
     if dst_bytes > 0:
         dst_payload = 'X' * min(dst_bytes, max_payload_size)
         response_inner_packet = IP(src="192.168.70.145", dst="12.1.1.130")/TCP(sport=port, dport=1024, flags='PA')/Raw(load=dst_payload)
         # Encapsulate response in GTP-U
-        response_gtp_packet = IP(src= "12.1.1.130", dst="12.1.1.129")/UDP(sport=2152, dport=2152)/GTP_U_Header(teid=1)/response_inner_packet
-        return (gtp_packet, response_gtp_packet)
+        #response_gtp_packet = IP(src= "12.1.1.130", dst="12.1.1.129")/UDP(sport=2152, dport=2152)/GTP_U_Header(teid=1)/response_inner_packet
+        return (inner_packet, response_inner_packet)
     else:
-        return (gtp_packet, None)
+        return (inner_packet, None)
 
 def simulate_traffic(dataframe):
     for index, row in dataframe.iterrows():
