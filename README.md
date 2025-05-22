@@ -156,6 +156,7 @@ python3 generate-ue1.py
 #### For UE2:    
  ```bash
 ip netns exec ue2 bash
+sudo ip route add 192.168.70.145 dev oaitun_ue1
 cd <path-to/oai-anomaly-detection/generate-ue-traffic>
 python3 generate-ue2.py
 ```
