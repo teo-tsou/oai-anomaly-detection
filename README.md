@@ -103,7 +103,7 @@ If you find this repository useful in your research, please consider citing the 
 ### Start gNB-mono
   ```bash
   cd openairinterface5g/cmake_targets/ran_build/build
-  sudo ./nr-softmodem -O <path-to/oai-anomaly-detection/gnb.conf> --sa --rfsim -E --gNBs.[0].min_rxtxtime 6  --telnetsrv --telnetsrv.shrmod rrc
+  sudo ./nr-softmodem -O <path-to/oai-anomaly-detection/conf/gnb.conf> --sa --rfsim -E --gNBs.[0].min_rxtxtime 6  --telnetsrv --telnetsrv.shrmod rrc
   ```
 
   ### Start RC xApp
