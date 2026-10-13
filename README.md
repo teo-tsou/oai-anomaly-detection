@@ -86,6 +86,8 @@ If you find this repository useful in your research, please consider citing the 
   git clone https://gitlab.eurecom.fr/oai/openairinterface5g
   cd openairinterface5g
   git checkout slicing-spring-of-code
+  # Apply the slice-control concurrency fix before building the gNB (see note below)
+  git apply ../patches/0001-fix-slice-ctrl-race-and-null-rrc-ctx.patch
   cd cmake_targets
   ./build_oai -I
   ./build_oai -c -C -w SIMU --gNB --nrUE --build-e2 --ninja
@@ -94,6 +96,21 @@ If you find this repository useful in your research, please consider citing the 
   cd cmake_targets
   ./build_oai --build-lib telnetsrv
   ```
+
+  > **Note — slice-control race fix (`patches/0001-fix-slice-ctrl-race-and-null-rrc-ctx.patch`):**
+  > Without this patch the gNB can segfault when the xApp sends its first slice
+  > reconfiguration (`CONTROL-REQUEST`), typically seen when the second UE / second
+  > Anomaly Detection Server comes up. The slice structures
+  > (`pre_processor_dl.slices`) are mutated by the MAC scheduler and the RRC UE
+  > setup/modify/release handlers under `sched_lock`, but the E2 slice-control
+  > handler (`add_mod_rc_slice`) only took `UE_info.mutex`, so a reconfiguration
+  > could free/rebuild the slices while another thread was walking them
+  > (use-after-free). The patch makes `add_mod_rc_slice` also take `sched_lock`
+  > (outer, matching the scheduler's lock order) and guards an unchecked
+  > `rrc_gNB_get_ue_context_by_rnti_any_du()` return against `NULL`.
+  > The patch targets the `slicing-spring-of-code` branch and must be applied
+  > before the gNB build step above (the `telnetsrv` build does not rebuild
+  > `nr-softmodem`).
 
 ### Start nearRT-RIC
   ```bash

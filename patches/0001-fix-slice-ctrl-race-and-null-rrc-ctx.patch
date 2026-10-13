@@ -1,0 +1,46 @@
+diff --git a/openair2/E2AP/RAN_FUNCTION/O-RAN/rc_ctrl_service_style_2.c b/openair2/E2AP/RAN_FUNCTION/O-RAN/rc_ctrl_service_style_2.c
+index 4498af0717..d6071f7080 100644
+--- a/openair2/E2AP/RAN_FUNCTION/O-RAN/rc_ctrl_service_style_2.c
++++ b/openair2/E2AP/RAN_FUNCTION/O-RAN/rc_ctrl_service_style_2.c
+@@ -72,6 +72,12 @@ bool add_mod_rc_slice(int mod_id, size_t slices_len, ran_param_list_t* lst)
+   // use NVS algorithm by default
+   int new_algo = NVS_SLICING;
+ 
++  /* The slice structures (pre_processor_dl.slices) are also mutated by the MAC
++   * scheduler and by the RRC UE setup/modify/release handlers, which hold
++   * sched_lock. Take sched_lock here (outer, matching the scheduler's lock
++   * order sched_lock -> UE_info.mutex) so this reconfiguration cannot race
++   * with those paths and free/rebuild slices under their feet. */
++  pthread_mutex_lock(&nrmac->sched_lock);
+   pthread_mutex_lock(&nrmac->UE_info.mutex);
+   if (current_algo != new_algo) {
+     set_new_dl_slice_algo(mod_id, new_algo);
+@@ -190,6 +196,7 @@ bool add_mod_rc_slice(int mod_id, size_t slices_len, ran_param_list_t* lst)
+     free(label_nssai);
+     if (rc < 0) {
+       pthread_mutex_unlock(&nrmac->UE_info.mutex);
++      pthread_mutex_unlock(&nrmac->sched_lock);
+       LOG_E(NR_MAC, "error code %d while updating slices\n", rc);
+       return false;
+     }
+@@ -214,6 +221,12 @@ bool add_mod_rc_slice(int mod_id, size_t slices_len, ran_param_list_t* lst)
+         LOG_D(NR_MAC, "l %d, lcid %ld, sst %d, sd %d\n", l, lcid, sched_ctrl->dl_lc_nssai[lcid].sst, sched_ctrl->dl_lc_nssai[lcid].sd);
+         if (nssai_matches(sched_ctrl->dl_lc_nssai[lcid], RC_nssai.sst, &RC_nssai.sd)) {
+           rrc_gNB_ue_context_t* rrc_ue_context_list = rrc_gNB_get_ue_context_by_rnti_any_du(RC.nrrrc[mod_id], rnti);
++          if (rrc_ue_context_list == NULL) {
++            /* UE known to MAC but its RRC context is not (yet) resolvable;
++             * skip rather than dereference NULL. */
++            LOG_W(NR_MAC, "no RRC UE context for rnti 0x%04x, skipping slice association\n", rnti);
++            continue;
++          }
+           uint16_t UE_mcc = rrc_ue_context_list->ue_context.ue_guami.mcc;
+           uint16_t UE_mnc = rrc_ue_context_list->ue_context.ue_guami.mnc;
+ 
+@@ -235,6 +248,7 @@ bool add_mod_rc_slice(int mod_id, size_t slices_len, ran_param_list_t* lst)
+   }
+ 
+   pthread_mutex_unlock(&nrmac->UE_info.mutex);
++  pthread_mutex_unlock(&nrmac->sched_lock);
+   LOG_D(NR_MAC, "All slices add/mod successfully!\n");
+   return true;
+ }
