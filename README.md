@@ -75,7 +75,7 @@ If you find this repository useful in your research, please consider citing the 
   git clone https://gitlab.eurecom.fr/mosaic5g/flexric
   cd flexric
   git checkout slicing-spring-of-code
-  cp <path-to/oai-anomaly-detection/xapp_rc_slice_ctrl.c> /examples/xApp/c/ctrl/
+  cp <path-to/oai-anomaly-detection/xapp_rc_slice_ctrl.c> examples/xApp/c/ctrl/
   ```
   ```bash
   mkdir build && cd build && cmake -DXAPP_MULTILANGUAGE=OFF .. && make -j8 && sudo make install
