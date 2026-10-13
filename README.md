@@ -87,6 +87,7 @@ If you find this repository useful in your research, please consider citing the 
   cd openairinterface5g
   git checkout slicing-spring-of-code
   cd cmake_targets
+  ./build_oai -I
   ./build_oai -c -C -w SIMU --gNB --nrUE --build-e2 --ninja
   cd ../
   git checkout 243c985af86f857c28d14c2bb25e54e223b07a00
